@@ -41,7 +41,7 @@ foreach ($Channel in $Channels) {
                 default { "INFO" }
             }
 
-            $Msg = if ($evt.Message) { ($evt.Message -split "\r?\n")[0] } else { "[No Description]" }
+            $Msg = if ($evt.Message) { $evt.Message.Trim() } else { "[No Description]" }
 
             $AllLogs.Add([PSCustomObject]@{
                 Time     = $evt.TimeCreated.ToString("yyyy-MM-dd HH:mm:ss")
@@ -95,6 +95,7 @@ $HtmlContent = @"
     .event-id { color: #38bdf8; font-family: monospace; font-weight: 600; }
     .msg-cell { color: #cbd5e1; }
     .time-cell { color: var(--text-muted); font-family: monospace; white-space: nowrap; }
+	.msg-cell { color: #cbd5e1; word-break: break-word; white-space: pre-wrap; }
   </style>
 </head>
 <body>
